@@ -25,11 +25,10 @@ def set_translate(message):
     bot.reply_to(message, 'Перевожу ваши сообщения на английский язык. Для прекращения перевода используйте - /stopt.')
 
 @bot.message_handler(commands=['stopt'])
-def send_welcome(message):
+def stop_translate(message):
     global flag1
     flag1 = False
     bot.reply_to(message, 'Перевод отключён.')
-
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
@@ -39,7 +38,9 @@ def send_help(message):
 /ten - Перевод ваших сообщений на английский язык
 /stopt - Отключает перевод сообщений''')
 
-
+@bot.message_handler(commands=['pic'])
+def send_pic(message):
+    bot.send_photo(message.chat.id, 'https://i.ytimg.com/vi/XGL_rWpBHzE/maxresdefault.jpg')
 
 
 
