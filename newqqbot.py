@@ -24,22 +24,22 @@ def set_translate(message):
     global flag1
     global tg
     flag1 = True
-    if message.text[4::] == 'english' or message.text[4::] == 'en':
+    if message.text[4::] == 'english' or message.text[4::] == 'en' or message.text[4::] == 'английский':
         bot.reply_to(message, 'Перевожу ваши сообщения на английский язык. Для прекращения перевода используйте - /stopt.')
         tg = 'en'
-    elif message.text[4::] == 'ukrainian' or message.text[4::] == 'uk':
+    elif message.text[4::] == 'ukrainian' or message.text[4::] == 'uk' or message.text[4::] == 'украинский':
         bot.reply_to(message, 'Перевожу ваши сообщения на украинский язык. Для прекращения перевода используйте - /stopt.')
         tg = 'uk'
-    elif message.text[4::] == 'chinese' or message.text[4::] == 'zh':
+    elif message.text[4::] == 'chinese' or message.text[4::] == 'zh' or message.text[4::] == 'китайский':
         bot.reply_to(message, 'Перевожу ваши сообщения на китайский язык. Для прекращения перевода используйте - /stopt.')
-        tg = 'zh'
-    elif message.text[4::] == 'japanese' or message.text[4::] == 'ja':
+        tg = 'zh-CN'
+    elif message.text[4::] == 'japanese' or message.text[4::] == 'ja' or message.text[4::] == 'японский':
         bot.reply_to(message, 'Перевожу ваши сообщения на японский язык. Для прекращения перевода используйте - /stopt.')
         tg = 'ja'
-    elif message.text[4::] == 'german' or message.text[4::] == 'de':
+    elif message.text[4::] == 'german' or message.text[4::] == 'de' or message.text[4::] == 'немецкий':
         bot.reply_to(message, 'Перевожу ваши сообщения на немецкий язык. Для прекращения перевода используйте - /stopt.')
         tg = 'de'
-    elif message.text[4::] == 'russian' or message.text[4::] == 'ru':
+    elif message.text[4::] == 'russian' or message.text[4::] == 'ru' or message.text[4::] == 'русский':
         bot.reply_to(message, 'Перевожу ваши сообщения на русский язык. Для прекращения перевода используйте - /stopt.')
         tg = 'ru'
     else:
@@ -85,6 +85,7 @@ def get_text_messages(message):
         elif message.text == "@QqBig_bot Какая игра лучшая?":
             bot.send_message(message.chat.id, 'Думаешь тут будет Genshin Impact? НЕТ! Это Persona 5!!!')
             bot.send_photo(message.chat.id, 'https://cdn.vox-cdn.com/thumbor/PyOsRTbkSQRZH1eFj6mzMUvUBD4=/0x0:1437x771/1200x675/filters:focal(1090x283:1318x511)/cdn.vox-cdn.com/uploads/chorus_image/image/64062696/Screen_Shot_2016-09-13_at_1.44.05_PM.0.0.png')
+
     elif message.chat.type == 'private':
         if flag1:
             bot.reply_to(message, GoogleTranslator(source='auto', target=tg).translate(message.text))
