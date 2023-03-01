@@ -36,7 +36,8 @@ def send_help(message):
 /start - Приветствие
 /help - Помощь
 /ten - Перевод ваших сообщений на английский язык
-/stopt - Отключает перевод сообщений''')
+/stopt - Отключает перевод сообщений
+/pic - Прикольная картинка''')
 
 @bot.message_handler(commands=['pic'])
 def send_pic(message):
