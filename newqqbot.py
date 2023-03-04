@@ -13,6 +13,7 @@ print(info)
 
 flag1 = False
 tg = 'en'
+id_fortl = 0
 
 
 @bot.message_handler(commands=['start'])
@@ -23,7 +24,9 @@ def send_welcome(message):
 def set_translate(message):
     global flag1
     global tg
+    global id_fortl
     flag1 = True
+    id_fortl = message.from_user.id
     if message.text[4::] == 'english' or message.text[4::] == 'en' or message.text[4::] == 'английский':
         bot.reply_to(message, 'Перевожу ваши сообщения на английский язык. Для прекращения перевода используйте - /stopt.')
         tg = 'en'
@@ -72,7 +75,7 @@ def send_pic(message):
 def get_text_messages(message):
     global tg
     if message.chat.type == 'supergroup':
-        if flag1:
+        if flag1 and message.from_user.id == id_fortl:
             bot.reply_to(message, GoogleTranslator(source='auto', target=tg).translate(message.text))
         elif message.text == "@QqBig_bot Привет":
             bot.send_message(message.chat.id, "Привет, чем я могу тебе помочь?")
