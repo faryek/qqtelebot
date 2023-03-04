@@ -3,6 +3,29 @@ import os
 from dotenv import load_dotenv
 import requests
 from deep_translator import GoogleTranslator
+import requests
+from bs4 import BeautifulSoup as bs
+import random
+
+
+
+def pikabu_post(query):
+    result = []
+    if query != 'None' and query != 'QqBig_bot':
+        url = 'https://pikabu.ru/search?q='+query+'&st=3'
+    else:
+        url = 'https://pikabu.ru/new'
+    page = requests.get(url)
+    exbs = bs(page.text, 'lxml')
+    temp = exbs.find_all('a', class_='story__title-link')
+    ind = random.randrange(0,len(temp))
+    url2 = temp[ind].get('href')
+    page2 = requests.get(url2)
+    newbs = bs(page2.text, 'lxml')
+    title = newbs.find('span', class_='story__title-link')
+    title = title.get_text()
+    result.append(title+'\n\n'+'Ссылка на пост: '+url2)
+    return result
 
 load_dotenv()
 
@@ -62,12 +85,18 @@ def send_help(message):
 /to [язык] - Перевод ваших сообщений на указанный язык.
 На данный момент доступны: английский, украинский, китайский, японский, немецкий.
 /stopt - Отключает перевод сообщений
-/pic - Прикольная картинка''')
+/pic - Прикольная картинка
+/pika [Тема поста] - Случайный свежий пост с Пикабу на нужную тему, если она указана''')
 
 @bot.message_handler(commands=['pic'])
 def send_pic(message):
     bot.send_photo(message.chat.id, 'https://i.ytimg.com/vi/XGL_rWpBHzE/maxresdefault.jpg')
 
+@bot.message_handler(commands=['pika'])
+def send_post(message):
+    post = pikabu_post(message.text[6::])
+    if len(post) == 1:
+        bot.send_message(message.chat.id, post[0])
 
 
 
